@@ -4,6 +4,7 @@
   "title": "Lookup",
   "description": "Look up words and translate passages",
   "icon": "lookup-icon.png",
+  "owner": "nebula-wing",
   "author": "eyebrowkang",
   "license": "MIT",
   "keywords": [
