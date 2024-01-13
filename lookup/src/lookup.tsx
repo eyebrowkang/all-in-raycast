@@ -1,6 +1,31 @@
-import { List, ActionPanel, Action, Detail, LocalStorage, Icon, confirmAlert, Alert } from "@raycast/api";
+import {
+  List,
+  ActionPanel,
+  Action,
+  Detail,
+  LocalStorage,
+  Icon,
+  confirmAlert,
+  Alert,
+  getPreferenceValues,
+} from "@raycast/api";
 import { useState, useEffect, useMemo } from "react";
 import { fetchDefinition } from "./services/vocabulary";
+
+interface Preferences {
+  maxHistoryItem: string;
+}
+const MAX_HISTORY_ITEM = getMaxHistoryItem();
+
+function getMaxHistoryItem(): number {
+  const preferences = getPreferenceValues<Preferences>();
+  const { maxHistoryItem } = preferences;
+  const num = parseInt(maxHistoryItem, 10);
+  if (isNaN(num) || num <= 0) {
+    return 200;
+  }
+  return num;
+}
 
 interface HistoryItem {
   word: string;
@@ -145,7 +170,6 @@ async function getSortedHistoryItems(): Promise<HistoryItem[]> {
 }
 
 async function addHistoryItem(word: string, definition: string): Promise<void> {
-  const MAX_HISTORY_ITEM = 5;
   const historyItems = await getSortedHistoryItems();
   while (historyItems.length >= MAX_HISTORY_ITEM) {
     const { word } = historyItems.pop()!;

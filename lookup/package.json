@@ -6,12 +6,29 @@
   "icon": "lookup-icon.png",
   "author": "eyebrowkang",
   "license": "MIT",
+  "keywords": [
+    "lookup",
+    "translate"
+  ],
+  "categories": [
+    "Productivity"
+  ],
   "commands": [
     {
       "name": "lookup",
       "title": "Lookup",
       "description": "Lookup words",
       "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "description": "Maximum number of history items",
+      "name": "maxHistoryItem",
+      "default": "200",
+      "required": false,
+      "title": "History Maximum",
+      "type": "textfield"
     }
   ],
   "dependencies": {
