@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load as cheerioLoad } from "cheerio";
 
-type DefinitionFunc = (word: string) => Promise<string>;
+type DefinitionFunc = (word: string) => Promise<string | undefined>;
 
 const headers: Record<string, string> = {
   "User-Agent": "Raycast Lookup",
@@ -12,8 +12,8 @@ const COUNTRY_FLAG_DICT: Record<string, string> = {
   "uk-flag-icon": "\u{1f1ec}\u{1f1e7}",
 };
 
-export const getDefinitions: DefinitionFunc = async (word: string) => {
-  let markdownStr = "";
+export const fetchDefinition: DefinitionFunc = async (word: string) => {
+  let markdownStr;
   try {
     const { data: htmlContent } = await axios.get<string>(`https://www.vocabulary.com/dictionary/${word}`, {
       headers,
@@ -53,9 +53,10 @@ export const getDefinitions: DefinitionFunc = async (word: string) => {
       });
     });
 
-    markdownStr = `## ${word}\n${ipaStr}\n\n${wordFormsStr}\n\n${shortStr}\n\n${longStr}\n\n${definitionStr}`;
+    if (shortStr || longStr || definitionStr) {
+      markdownStr = `### ${word}\n${ipaStr}\n\n${wordFormsStr}\n\n${shortStr}\n\n${longStr}\n\n${definitionStr}`;
+    }
   } catch (e) {
-    markdownStr = "# Error";
     console.error(e);
   }
 

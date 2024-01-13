@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "lookup",
   "title": "Lookup",
-  "description": "Lookup a word",
+  "description": "Look up words and translate passages",
   "icon": "lookup-icon.png",
   "author": "eyebrowkang",
   "license": "MIT",
@@ -10,7 +10,7 @@
     {
       "name": "lookup",
       "title": "Lookup",
-      "description": "Lookup a word",
+      "description": "Lookup words",
       "mode": "view"
     }
   ],
