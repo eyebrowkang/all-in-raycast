@@ -42,6 +42,9 @@ export default function Command() {
   const showInputWordItem = useMemo(() => {
     return word && !history.some((item) => item.word === word);
   }, [word, history]);
+  const filteredHistory = useMemo(() => {
+    return history.filter((item) => item.word.includes(word));
+  }, [word, history]);
 
   const syncHistory = async () => {
     setIsLoading(true);
@@ -64,7 +67,7 @@ export default function Command() {
       {showInputWordItem && (
         <List.Item key={word} title={word} actions={<ListItemActionPanel word={word} cleanup={syncHistory} />} />
       )}
-      {history.map((historyItem) => (
+      {filteredHistory.map((historyItem) => (
         <List.Item
           key={historyItem.word}
           title={historyItem.word}
