@@ -102,6 +102,7 @@ function ListItemActionPanel(props: ListItemActionPanelProps) {
         shortcut={{ modifiers: ["ctrl"], key: "x" }}
         onAction={async () => {
           await LocalStorage.removeItem(word);
+          cleanup();
         }}
       />
       <Action
@@ -119,6 +120,7 @@ function ListItemActionPanel(props: ListItemActionPanelProps) {
               style: Alert.ActionStyle.Destructive,
               onAction: async () => {
                 await LocalStorage.clear();
+                cleanup();
               },
             },
           });
